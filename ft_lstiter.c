@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gdemetra <gdemetra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 20:56:57 by gdemetra          #+#    #+#             */
-/*   Updated: 2025/06/19 18:37:24 by gdemetra         ###   ########.fr       */
+/*   Created: 2025/06/19 18:40:36 by gdemetra          #+#    #+#             */
+/*   Updated: 2025/06/19 20:08:29 by gdemetra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,22 @@
 // 	}
 // }
 
-void	ft_del_node(void *content)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	free(content);
+	t_list	*curr_node;
+
+	curr_node = lst;
+	while (curr_node)
+	{
+		f(curr_node->content);
+		curr_node = curr_node->next;
+	}
 }
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	del(lst->content);
-	free(lst);
-}
+// void	ft_delegate(void *content)
+// {
+// 	*(char *)content += 1;
+// }
 
 // int	main(void)
 // {
@@ -43,17 +49,15 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 // 	t_list	*node3;
 
 // 	begin = NULL;
-// 	node1 = ft_lstnew((void *)"First ");
-// 	node2 = ft_lstnew((void *)"Second ");
-// 	node3 = ft_lstnew((void *)"Third");
+// 	node1 = ft_lstnew((void *)ft_strdup("0"));
+// 	node2 = ft_lstnew((void *)ft_strdup("1"));
+// 	node3 = ft_lstnew((void *)ft_strdup("2"));
 // 	ft_lstadd_back(&begin, node1);
 // 	ft_lstadd_back(&begin, node2);
 // 	ft_lstadd_back(&begin, node3);
 // 	ft_print_list_t(begin);
-// 	ft_lstdelone(node2, ft_del_node);
+// 	ft_lstiter(begin, ft_delegate);
+// 	printf("\n");
 // 	ft_print_list_t(begin);
-// 	free(node1);
-// 	free(node2);
-// 	free(node3);
 // 	return (0);
 // }
