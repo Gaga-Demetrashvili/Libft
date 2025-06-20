@@ -6,7 +6,7 @@
 /*   By: gdemetra <gdemetra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:13:47 by gdemetra          #+#    #+#             */
-/*   Updated: 2025/06/19 21:59:12 by gdemetra         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:28:00 by gdemetra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,41 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
+	t_list	*curr_node;
+	char	*new_node_content;
+	t_list	*new_lst;
+	t_list	*new_lst_curr;
+
+	curr_node = lst;
+	new_lst = ft_lstnew(NULL);
+	new_lst_curr = new_lst;
+	while (curr_node)
+	{
+		new_node_content = f(curr_node->content);
+		if (!new_lst_curr)
+		{
+			del(new_node_content);
+			return (NULL);
+		}
+		new_lst_curr->content = new_node_content;
+		curr_node = curr_node->next;
+		if (curr_node)
+		{
+			new_lst_curr->next = ft_lstnew(NULL);
+			new_lst_curr = new_lst_curr->next;
+		}
+	}
+	return (new_lst);
 }
 
 void	*ft_delegate(void *content)
 {
+	return (ft_strdup((char *)content));
 }
 
 void	ft_del_content(void *content)
 {
+	free(content);
 }
 
 // int	main(void)
