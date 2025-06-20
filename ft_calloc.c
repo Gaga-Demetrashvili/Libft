@@ -18,8 +18,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*memory_block;
 
 	total_size = nmemb * size;
-	if (!total_size)
-		total_size = 1;
 	memory_block = malloc(total_size);
 	if (memory_block == NULL)
 		return (NULL);

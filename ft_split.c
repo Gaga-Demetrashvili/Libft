@@ -77,7 +77,7 @@ int	ft_strchr_for_split(const char *s, int c)
 			return (i);
 		i++;
 	}
-	if (s[i] == '\0' && (char)c == '\0')
+	if ((char)c == '\0')
 		return (i);
 	return (-1);
 }
@@ -93,33 +93,47 @@ size_t	ft_countwords(char const *s, char c)
 		word_count++;
 	while (s[i])
 	{
-		if (i != 0 && s[i] != c && s[i - 1] == c)
+		if (s[i] != c && s[i - 1] == c)
 			word_count++;
 		i++;
 	}
 	return (word_count);
 }
 
+void	ft_clear_memory(char **strarr)
+{
+	size_t	i;
+
+	i = 0;
+	while (strarr[i])
+	{
+		free(strarr[i]);
+		i++;
+	}
+}
+
 void	ft_initialize_arr(char **strarr, const char *src, char c,
 		size_t word_count)
 {
 	size_t	start_p;
-	size_t	len;
+	int		len;
 	size_t	i;
-	char	*substr;
 
 	start_p = 0;
 	i = 0;
 	while (i < word_count)
 	{
-		if (src[start_p] == c)
-		{
+		while (src[start_p] == c)
 			start_p++;
-			continue ;
-		}
 		len = ft_strchr_for_split(src + start_p, c);
-		substr = ft_substr(src, start_p, len);
-		strarr[i] = substr;
+		if (len < 0)
+			len = ft_strlen(src + start_p);
+		strarr[i] = ft_substr(src, start_p, len);
+		if (!strarr[i])
+		{
+			ft_clear_memory(strarr);
+			break ;
+		}
 		start_p += len;
 		i++;
 	}
