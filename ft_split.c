@@ -156,7 +156,7 @@ char	**ft_split(char const *s, char c)
 	arr_of_strings = (char **)malloc(sizeof(char *) * (word_count + 1));
 	if (!arr_of_strings)
 		return (NULL);
-	if(word_count == 0)
+	if (word_count == 0)
 	{
 		arr_of_strings[0] = NULL;
 		return (arr_of_strings);
