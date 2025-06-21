@@ -100,12 +100,12 @@ size_t	ft_countwords(char const *s, char c)
 	return (word_count);
 }
 
-void	ft_clear_memory(char **strarr)
+void	ft_clear_memory(char **strarr, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (strarr[i])
+	while (i < n)
 	{
 		free(strarr[i]);
 		i++;
@@ -131,7 +131,7 @@ void	ft_initialize_arr(char **strarr, const char *src, char c,
 		strarr[i] = ft_substr(src, start_p, len);
 		if (!strarr[i])
 		{
-			ft_clear_memory(strarr);
+			ft_clear_memory(strarr, i);
 			break ;
 		}
 		start_p += len;
@@ -156,6 +156,11 @@ char	**ft_split(char const *s, char c)
 	arr_of_strings = (char **)malloc(sizeof(char *) * (word_count + 1));
 	if (!arr_of_strings)
 		return (NULL);
+	if(word_count == 0)
+	{
+		arr_of_strings[0] = NULL;
+		return (arr_of_strings);
+	}
 	ft_initialize_arr(arr_of_strings, s, c, word_count);
 	return (arr_of_strings);
 }
@@ -169,9 +174,10 @@ char	**ft_split(char const *s, char c)
 // 	// str_to_split = "   lorem   ipsum dolor     sit amet,
 // 	// 				consectetur adipiscing elit.Sed non risus.Suspendisse ";
 // 	split_on = ' ';
-// 	splitted_string = ft_split("   lorem   ipsum dolor     sit amet,"
-// 			" consectetur adipiscing elit.Sed non risus.Suspendisse ",
-// 								split_on);
+// 	// splitted_string = ft_split("   lorem   ipsum dolor     sit amet,"
+// 	// 		" consectetur adipiscing elit.Sed non risus.Suspendisse ",
+// 	// 							split_on);
+// 	splitted_string = ft_split("", split_on);
 // 	ft_print_result(splitted_string);
 // 	free(splitted_string);
 // 	return (0);
