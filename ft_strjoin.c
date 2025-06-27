@@ -6,7 +6,7 @@
 /*   By: gdemetra <gdemetra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 18:41:38 by gdemetra          #+#    #+#             */
-/*   Updated: 2025/06/11 18:43:49 by gdemetra         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:48:54 by gdemetra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j])
-	{
-		string[i] = s1[j];
-		i++;
-		j++;
-	}
+	while (s1 && s1[j])
+		string[i++] = s1[j++];
 	j = 0;
-	while (s2[j])
-	{
-		string[i] = s2[j];
-		i++;
-		j++;
-	}
+	while (s2 && s2[j])
+		string[i++] = s2[j++];
 	string[i] = '\0';
 	return (string);
 }
